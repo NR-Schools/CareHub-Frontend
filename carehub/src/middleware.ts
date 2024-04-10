@@ -6,16 +6,17 @@ import { cookiesSchema } from "@/schemas";
 export function middleware(request: NextRequest) {
   const { nextUrl } = request;
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const cookie: unknown = request.cookies.get("session");
   const validatedCookie = cookiesSchema.safeParse(cookie);
 
   if (isAuthRoute && validatedCookie.success) {
-    const { name, value } = validatedCookie.data;
     return Response.redirect(new URL(DEFAULT_LOGIN_ROUTE, nextUrl));
   }
   if (!validatedCookie.success && !isAuthRoute) {
     return Response.redirect(new URL("/auth/login", nextUrl));
+  }
+  if (request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return null;

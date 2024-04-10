@@ -4,7 +4,6 @@ import * as z from "zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -19,10 +18,13 @@ import { Button } from "@/components/ui/button";
 import { FormSuccess } from "@/components/form-success";
 import { FormError } from "@/components/form-error";
 import { login } from "@/actions/login";
+import { useRouter } from "next/navigation";
+import { LoginSchema } from "@/schemas";
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -34,11 +36,11 @@ export const LoginForm = () => {
     setError("");
     setSuccess("");
     //server side
-
     startTransition(() => {
       login(values).then((data) => {
         setError(data.error);
         setSuccess(data.success);
+        router.push("/dashboard");
       });
     });
   };

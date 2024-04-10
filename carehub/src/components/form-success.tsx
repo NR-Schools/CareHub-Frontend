@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
 
 interface FormSuccessProps {

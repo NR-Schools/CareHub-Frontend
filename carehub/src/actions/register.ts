@@ -22,6 +22,5 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     method: "POST",
     body: formData,
   });
-
   return { success: "User Created" };
 };

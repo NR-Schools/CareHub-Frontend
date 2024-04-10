@@ -34,7 +34,6 @@ export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
-  // const [date, setDate] = useState<Date>();
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -45,7 +44,7 @@ export const RegisterForm = () => {
       birthdate: new Date(),
     },
   });
-  const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
+  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
     setSuccess("");
     //server side
@@ -65,7 +64,6 @@ export const RegisterForm = () => {
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {" "}
           <div className="space-y-4">
             <FormField
               control={form.control}
