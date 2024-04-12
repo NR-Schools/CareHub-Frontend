@@ -29,5 +29,16 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     return { error: "Invalid credentials" };
   }
 
+  const authorization = cookies().get("session");
+  console.log(authorization?.value);
+  const respo = await fetch(`${process.env.DATABASE_URL}/user`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${authorization?.value}`,
+    },
+  });
+  const user = await respo.json();
+  console.log(user);
+
   return { success: "Email sent", role: "customer" };
 };

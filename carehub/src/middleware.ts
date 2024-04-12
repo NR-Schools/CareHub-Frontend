@@ -6,8 +6,9 @@ import {
   protectedRoutesCustomer,
 } from "@/routes";
 import { cookiesSchema } from "@/schemas";
+import { cookies } from "next/headers";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { nextUrl } = request;
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   const protectedRouteCustomer = protectedRoutesCustomer.includes(
@@ -19,14 +20,17 @@ export function middleware(request: NextRequest) {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const cookie: unknown = request.cookies.get("session");
   const validatedCookie = cookiesSchema.safeParse(cookie);
-  const customer = false;
+  const customer = true;
 
-  if (!validatedCookie.success && protectedRouteCustomer) {
-    return Response.redirect(new URL("/auth/login", nextUrl));
-  }
-  if (!validatedCookie.success && protectedRouteProvider) {
-    return Response.redirect(new URL("/auth/login", nextUrl));
-  }
+  // const authorization = cookies().get("session");
+  // const respo = await fetch(`${process.env.DATABASE_URL}/user`, {
+  //   method: "GET",
+  //   headers: {
+  //     Authorization: `Bearer: ${authorization?.value}`,
+  //   },
+  // });
+  // const user = await respo.json();
+  // console.log(user);
   if (!validatedCookie.success && !isAuthRoute) {
     return Response.redirect(new URL("/auth/login", nextUrl));
   }
