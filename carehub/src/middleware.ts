@@ -20,17 +20,14 @@ export async function middleware(request: NextRequest) {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const cookie: unknown = request.cookies.get("session");
   const validatedCookie = cookiesSchema.safeParse(cookie);
-  const customer = true;
+  const customer = false;
 
-  // const authorization = cookies().get("session");
-  // const respo = await fetch(`${process.env.DATABASE_URL}/user`, {
-  //   method: "GET",
-  //   headers: {
-  //     Authorization: `Bearer: ${authorization?.value}`,
-  //   },
-  // });
-  // const user = await respo.json();
-  // console.log(user);
+  if (!validatedCookie.success && protectedRouteCustomer) {
+    return Response.redirect(new URL("/auth/login", nextUrl));
+  }
+  if (!validatedCookie.success && protectedRouteProvider) {
+    return Response.redirect(new URL("/auth/login", nextUrl));
+  }
   if (!validatedCookie.success && !isAuthRoute) {
     return Response.redirect(new URL("/auth/login", nextUrl));
   }

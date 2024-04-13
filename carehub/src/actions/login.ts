@@ -2,6 +2,7 @@
 import * as z from "zod";
 import { LoginSchema, tokenSchema } from "@/schemas";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedLogin = LoginSchema.safeParse(values);
   if (!validatedLogin.success) {
@@ -28,17 +29,6 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   } else {
     return { error: "Invalid credentials" };
   }
-
-  const authorization = cookies().get("session");
-  console.log(authorization?.value);
-  const respo = await fetch(`${process.env.DATABASE_URL}/user`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${authorization?.value}`,
-    },
-  });
-  const user = await respo.json();
-  console.log(user);
 
   return { success: "Email sent", role: "customer" };
 };
