@@ -22,7 +22,6 @@ import { useRouter } from "next/navigation";
 import { LoginSchema } from "@/schemas";
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -34,13 +33,13 @@ export const LoginForm = () => {
   });
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
-    setSuccess("");
     //server side
     startTransition(() => {
       login(values).then((data) => {
         setError(data.error);
-        setSuccess(data.success);
-        router.push(`/${data.role}/dashboard`);
+        if (!data.error) {
+          router.push(`/${data.role}/dashboard`);
+        }
       });
     });
   };
@@ -49,7 +48,6 @@ export const LoginForm = () => {
       headerLabel="Welcome Back"
       backButtonLabel="Don't have an account?"
       backButtonHref="/auth/register"
-      showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -92,7 +90,6 @@ export const LoginForm = () => {
             />
           </div>
           <FormError message={error} />
-          <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
             Login
           </Button>

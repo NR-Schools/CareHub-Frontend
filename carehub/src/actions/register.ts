@@ -9,7 +9,8 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: "Invalid fields" };
   }
 
-  const { email, password, name, contact, birthdate } = validatedFields.data;
+  const { email, password, name, contact, birthdate, userServiceCare } =
+    validatedFields.data;
 
   const formData = new FormData();
   formData.append("name", name);
@@ -18,9 +19,17 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   formData.append("contactNo", contact);
   formData.append("birthDate", birthdate.toISOString().split("T")[0]);
 
-  await fetch("http://localhost:18080/auth/register", {
-    method: "POST",
-    body: formData,
-  });
+  try {
+    const response = await fetch("http://localhost:18080/auth/register", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    return { error: "User already exists" };
+  }
   return { success: "User Created" };
 };

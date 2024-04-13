@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import {
   SIDENAV_MENU_CUSTOMER,
   SIDENAV_MENU_PROVIDER,
-} from "@/app/(protected)/constants";
+} from "@/components/sidenav/constants";
 const SideNav = () => {
   return (
     <div className="h-full">
@@ -17,7 +17,7 @@ const SideNav = () => {
       </div>
 
       <div className="flex flex-col">
-        {SIDENAV_MENU_CUSTOMER.map((item, idx) => {
+        {SIDENAV_MENU_PROVIDER.map((item, idx) => {
           return <MenuItem key={idx} item={item} />;
         })}
       </div>

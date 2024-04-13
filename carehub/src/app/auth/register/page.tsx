@@ -1,7 +1,7 @@
-import { RegisterForm } from "@/components/auth/register-form";
+import { RoleForm } from "@/components/auth/role-form";
 
-const RegisterPage = () => {
-  return <RegisterForm />;
+const RolePage = () => {
+  return <RoleForm />;
 };
 
-export default RegisterPage;
+export default RolePage;

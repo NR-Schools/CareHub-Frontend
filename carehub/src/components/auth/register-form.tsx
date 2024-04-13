@@ -30,10 +30,16 @@ import { FormSuccess } from "@/components/form-success";
 import { FormError } from "@/components/form-error";
 import { register } from "@/actions/register";
 import { RegisterSchema } from "@/schemas";
-export const RegisterForm = () => {
+import { useRouter } from "next/navigation";
+
+interface RegisterFormProps {
+  role: boolean;
+}
+export const RegisterForm = ({ role }: RegisterFormProps) => {
   const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -42,16 +48,18 @@ export const RegisterForm = () => {
       name: "",
       contact: "",
       birthdate: new Date(),
+      userServiceCare: role,
     },
   });
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
-    setSuccess("");
     //server side
     startTransition(() => {
       register(values).then((data) => {
         setError(data.error);
-        setSuccess(data.success);
+        if (!data.error) {
+          router.push(`/auth/login`);
+        }
       });
     });
   };
@@ -60,7 +68,6 @@ export const RegisterForm = () => {
       headerLabel="Createa an account"
       backButtonLabel="Already have an account?"
       backButtonHref="/auth/login"
-      showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -126,7 +133,12 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Contact</FormLabel>
                   <FormControl>
-                    <Input disabled={isPending} placeholder="+63" {...field} />
+                    <Input
+                      type="number"
+                      disabled={isPending}
+                      placeholder="Enter your contact"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -175,7 +187,6 @@ export const RegisterForm = () => {
             />
           </div>
           <FormError message={error} />
-          <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
             Create an account
           </Button>

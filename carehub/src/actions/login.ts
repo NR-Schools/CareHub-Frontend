@@ -2,7 +2,6 @@
 import * as z from "zod";
 import { LoginSchema, tokenSchema } from "@/schemas";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedLogin = LoginSchema.safeParse(values);
   if (!validatedLogin.success) {
@@ -19,7 +18,6 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   });
   const data = await res.json();
   const token = await data.token;
-
   const validatedToken = tokenSchema.safeParse(token);
 
   if (validatedToken.success) {
@@ -30,5 +28,5 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     return { error: "Invalid credentials" };
   }
 
-  return { success: "Email sent", role: "customer" };
+  return { success: "Email sent", role: "care-giver" };
 };

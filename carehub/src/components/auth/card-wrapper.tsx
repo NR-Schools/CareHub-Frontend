@@ -12,8 +12,8 @@ import { BackButton } from "@/components/auth/back-button";
 interface CardWrapperProps {
   children: React.ReactNode;
   headerLabel: string;
-  backButtonLabel: string;
-  backButtonHref: string;
+  backButtonLabel?: string;
+  backButtonHref?: string;
   showSocial?: boolean;
 }
 
@@ -22,7 +22,6 @@ export const CardWrapper = ({
   headerLabel,
   backButtonLabel,
   backButtonHref,
-  showSocial,
 }: CardWrapperProps) => {
   return (
     <Card className="w-[850px] shadow-md">
@@ -33,14 +32,16 @@ export const CardWrapper = ({
               <div className="mb-8 w-48 h-48 bg-gray-200 rounded-full flex items-center justify-center">
                 <span className="text-gray-500">logo here</span>
               </div>
-              <h1 className="text-3xl font-bold text-gray-800">
-                Welcome To CareHub!
+              <h1 className="text-3xl font-bold text-gray-800 flex items-center justify-center">
+                {headerLabel}
               </h1>
             </div>
             <CardContent>
               {children}
               <CardFooter>
-                <BackButton href={backButtonHref} label={backButtonLabel} />
+                {backButtonHref && backButtonLabel && (
+                  <BackButton href={backButtonHref} label={backButtonLabel} />
+                )}
               </CardFooter>
             </CardContent>
           </div>
