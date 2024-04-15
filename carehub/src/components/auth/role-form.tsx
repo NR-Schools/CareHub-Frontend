@@ -3,15 +3,15 @@
 import { useState } from "react";
 import { CardWrapper } from "./card-wrapper";
 import { RoleButton } from "@/components/auth/role-buttons";
-import { RegisterForm } from "@/components/auth/register-form";
 import { ProviderProfileCreation } from "@/components/auth/provider-profile-creation";
+import { LoginForm } from "./login-form";
+import { useRouter } from "next/navigation";
 export const RoleForm = () => {
-  const [customer, setCustomer] = useState<boolean>(false);
-  const [showForm, setShowForm] = useState<boolean>(false);
+  const router = useRouter();
 
   return (
     <div>
-      {!showForm && (
+      
         <CardWrapper headerLabel="Before we start, are you a caregiver, or a user?">
           <div className="w-full max-w-sm space-y-4">
             <div className="space-y-2 text-center">
@@ -24,23 +24,21 @@ export const RoleForm = () => {
               <RoleButton
                 label="Customer"
                 onClick={() => {
-                  setCustomer(true);
-                  setShowForm(true);
+                 router.push("/auth/login")
+
                 }}
               />
               <RoleButton
                 label="Provider"
                 onClick={() => {
-                  setCustomer(false);
-                  setShowForm(true);
+                  router.push("/auth/profile-creation")
+
                 }}
               />
             </div>
           </div>
         </CardWrapper>
-      )}
-      {customer && <RegisterForm role={customer} />}
-      {showForm && !customer && <ProviderProfileCreation role={customer} />}
+      
     </div>
   );
 };

@@ -31,13 +31,13 @@ import { FormError } from "@/components/form-error";
 import { register } from "@/actions/register";
 import { RegisterSchema } from "@/schemas";
 import { useRouter } from "next/navigation";
+import { Roboto_Flex } from "next/font/google";
+import { RoleForm } from "./role-form";
 
-interface RegisterFormProps {
-  role: boolean;
-}
-export const RegisterForm = ({ role }: RegisterFormProps) => {
+export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const [showForm, setShowForm] = useState<boolean>(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -48,7 +48,6 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
       name: "",
       contact: "",
       birthdate: new Date(),
-      userServiceCare: role,
     },
   });
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
@@ -58,13 +57,14 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
       register(values).then((data) => {
         setError(data.error);
         if (!data.error) {
-          router.push(`/auth/login`);
+          router.push("/auth/role")
         }
       });
     });
   };
   return (
-    <CardWrapper
+    <div> 
+<CardWrapper
       headerLabel="Createa an account"
       backButtonLabel="Already have an account?"
       backButtonHref="/auth/login"
@@ -193,5 +193,7 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
         </form>
       </Form>
     </CardWrapper>
+    </div>
+    
   );
 };

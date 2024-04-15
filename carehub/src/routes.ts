@@ -1,6 +1,6 @@
 export const publicRoutes = ["/"];
 
-export const authRoutes = ["/auth/login", "/auth/register", "/auth/role"];
+export const authRoutes = ["/auth/login", "/auth/register", "/auth/role" ,"/auth/profile-creation"];
 
 export const DEFAULT_LOGIN_ROUTE_PROVIDER = "/care-provider/dashboard";
 export const DEFAULT_LOGIN_ROUTE_CUSTOMER = "/customer/dashboard";

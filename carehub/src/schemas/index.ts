@@ -10,6 +10,20 @@ export const LoginSchema = z.object({
   }),
 });
 
+export const ProfileCreationSchema = z.object({
+  provider_name: z.string().min(1, { 
+    message: "please enter your provider name" }),
+  provider_location: z.string().min(1, {
+    message: "please enter your location",
+  }),
+  provider_description: z.string().min(1, {
+    message: "please enter your description",
+  }),
+  provider_services: z.string().min(1, {
+    message: "please enter your services",
+  }),
+});
+
 export const RegisterSchema = z.object({
   email: z.string().email().min(1, { message: "please enter your email" }),
   password: z.string().min(6, {
@@ -37,6 +51,6 @@ export const userSchema = z.object({
   name: z.string(),
   contactNo: z.string(),
   birthDate: z.string(),
-  photoBytes: z.null().or(z.string()),
+  photoId: z.null().or(z.string()),
   userServiceCare: z.null().or(z.boolean()),
 });
