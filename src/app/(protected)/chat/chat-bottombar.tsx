@@ -18,7 +18,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { ChatMessage, Data } from "@/app/(protected)/chat/types";
 
 interface ChatBottombarProps {
-  sendMessage: (newMessage: ChatMessage) => void;
   isMobile: boolean;
   data: Data;
   sendPrivateValue: (message: string) => void;
@@ -29,7 +28,6 @@ export const BottombarIcons = [{ icon: FileImage }, { icon: Paperclip }];
 
 export default function ChatBottombar({
   email,
-  sendMessage,
   isMobile,
   data,
   sendPrivateValue,
@@ -56,7 +54,6 @@ export default function ChatBottombar({
       },
       messageText: "👍",
     };
-    sendMessage(newMessage);
     sendPrivateValue(newMessage.messageText);
     setMessage("");
   };
@@ -75,7 +72,6 @@ export default function ChatBottombar({
         },
         messageText: message.trim(),
       };
-      sendMessage(newMessage);
       sendPrivateValue(newMessage.messageText);
       setMessage("");
 

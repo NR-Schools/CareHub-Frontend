@@ -8,7 +8,6 @@ import { ChatMessage, Data } from "@/app/(protected)/chat/types";
 
 interface ChatListProps {
   messages?: ChatMessage[];
-  sendMessage: (newMessage: ChatMessage) => void;
   isMobile: boolean;
   data: Data;
   email?: string;
@@ -17,7 +16,6 @@ interface ChatListProps {
 
 export function ChatList({
   messages,
-  sendMessage,
   isMobile,
   data,
   email,
@@ -92,7 +90,6 @@ export function ChatList({
         </AnimatePresence>
       </div>
       <ChatBottombar
-        sendMessage={sendMessage}
         isMobile={isMobile}
         data={data}
         sendPrivateValue={sendPrivateValue}

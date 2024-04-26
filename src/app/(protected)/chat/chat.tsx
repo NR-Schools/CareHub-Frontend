@@ -8,36 +8,32 @@ import SockJS from "sockjs-client";
 import { over } from "stompjs";
 import { Button } from "@/components/ui/button";
 
+var stompClient: any = null;
 export function Chat({ email, cookie, data }: ConversationProps) {
   const [selectedUser, setSelectedUser] = React.useState(userData[0]);
   const [isMobile, setIsMobile] = useState(false);
   const [messagesState, setMessages] = React.useState<ChatMessage[]>(
     data.messages ?? []
   );
-  const [privateChats, setPrivateChats] = useState(new Map());
-
-  let stompClient: any = null;
   const conversationData = data.members.map((member) => member);
   const receiverName = conversationData[0].name === email ? 0 : 1;
-
-
+  const list: ChatMessage[] = [];
   const onPrivateMessage = (payload: any) => {
-    console.log("onPrivateMessage is called!");
-    console.log(payload);
     var payloadData = JSON.parse(payload.body);
-    
-    
-    if (privateChats.get(payloadData.senderName)) {
-      privateChats.get(payloadData.senderName).push(payloadData);
-      setPrivateChats(new Map(privateChats));
-    } else {
-      let list = [];
-      list.push(payloadData);
-      privateChats.set(payloadData.senderName, list);
-      setPrivateChats(new Map(privateChats));
-    }
-
-
+    messagesState.push(payloadData);
+    setMessages([...messagesState]);
+    console.log(list);
+    // if (privateChats.get(payloadData.senderName)) {
+    //   privateChats.get(payloadData.senderName).push(payloadData);
+    //   setPrivateChats(new Map(privateChats));
+    //   console.log(privateChats);
+    //   console.log(payloadData);
+    // } else {
+    //   let list = [];
+    //   list.push(payloadData);
+    //   privateChats.set(payloadData.senderName, list);
+    //   setPrivateChats(new Map(privateChats));
+    // }
   };
   const onConnected = () => {
     stompClient.subscribe(
@@ -60,9 +56,6 @@ export function Chat({ email, cookie, data }: ConversationProps) {
   };
 
   const sendPrivateValue = (message: string) => {
-    console.log("sendPrivateValue is called!!")
-    console.log(message);
-
     if (stompClient) {
       var chatMessage = {
         senderUser: { email: email },
@@ -78,20 +71,17 @@ export function Chat({ email, cookie, data }: ConversationProps) {
     }
   };
 
-  const sendMessage = (newMessage: ChatMessage) => {
-    setMessages([...messagesState, newMessage]);
-  };
-
-  // connect();
+  if (!stompClient) {
+    connect();
+  }
   return (
     <>
-      <Button onClick={() => connect()}>Connect</Button>
+      {/* <Button onClick={() => connect()}>Connect</Button> */}
       <div className="flex flex-col justify-between w-full h-full">
         <ChatTopbar selectedUser={selectedUser} />
 
         <ChatList
           messages={messagesState}
-          sendMessage={sendMessage}
           isMobile={isMobile}
           data={data}
           email={email}
