@@ -65,15 +65,15 @@ export async function PUT(request: NextRequest) {
     },
     body: formData,
   });
-  // const data = await res.json();
+
+  const data = await res.json();
   // console.log(data);
   // if (data.error) {
   //   console.log(data.error);
   //   return { error: data.error };
   // }
   // const validatedRequest = RequestSchema.safeParse(data);
-  // return NextResponse.json(res);
-  // );
+  return NextResponse.json({ data });
 }
 export async function DELETE(request: NextRequest) {
   const cookieStore: unknown = cookies().get("session");

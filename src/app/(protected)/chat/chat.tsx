@@ -6,6 +6,7 @@ import { userData } from "./data";
 import { ChatMessage, ConversationProps } from "@/app/(protected)/chat/types";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
+import { Button } from "@/components/ui/button";
 
 export function Chat({ email, cookie, data }: ConversationProps) {
   const [selectedUser, setSelectedUser] = React.useState(userData[0]);
@@ -18,10 +19,14 @@ export function Chat({ email, cookie, data }: ConversationProps) {
   let stompClient: any = null;
   const conversationData = data.members.map((member) => member);
   const receiverName = conversationData[0].name === email ? 0 : 1;
+
+
   const onPrivateMessage = (payload: any) => {
-    console.log("asdas");
+    console.log("onPrivateMessage is called!");
     console.log(payload);
     var payloadData = JSON.parse(payload.body);
+    
+    
     if (privateChats.get(payloadData.senderName)) {
       privateChats.get(payloadData.senderName).push(payloadData);
       setPrivateChats(new Map(privateChats));
@@ -31,6 +36,8 @@ export function Chat({ email, cookie, data }: ConversationProps) {
       privateChats.set(payloadData.senderName, list);
       setPrivateChats(new Map(privateChats));
     }
+
+
   };
   const onConnected = () => {
     stompClient.subscribe(
@@ -53,6 +60,7 @@ export function Chat({ email, cookie, data }: ConversationProps) {
   };
 
   const sendPrivateValue = (message: string) => {
+    console.log("sendPrivateValue is called!!")
     console.log(message);
 
     if (stompClient) {
@@ -74,10 +82,10 @@ export function Chat({ email, cookie, data }: ConversationProps) {
     setMessages([...messagesState, newMessage]);
   };
 
-  connect();
+  // connect();
   return (
     <>
-      {/* <Button onClick={() => connect()}>Connect</Button> */}
+      <Button onClick={() => connect()}>Connect</Button>
       <div className="flex flex-col justify-between w-full h-full">
         <ChatTopbar selectedUser={selectedUser} />
 
