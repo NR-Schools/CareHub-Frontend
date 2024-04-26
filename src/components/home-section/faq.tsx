@@ -35,8 +35,8 @@ const Faq = () => {
             our high standards of professionalism and reliability. This includes
             thorough background checks, verification of certifications and
             qualifications, as well as interviews to assess their experience and
-            compatibility with our clients' needs. Your safety and peace of mind
-            are our top priorities.
+            compatibility with our client&apos;s needs. Your safety and peace of
+            mind are our top priorities.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
@@ -50,7 +50,7 @@ const Faq = () => {
             caregiver for a few hours a week, full-time care, or just an
             occasional helping hand, we offer flexible options to accommodate
             your schedule and preferences. Simply specify your requirements, and
-            we'll match you with caregivers who can meet your needs on your
+            we&apos;ll match you with caregivers who can meet your needs on your
             terms.{" "}
           </AccordionContent>
         </AccordionItem>

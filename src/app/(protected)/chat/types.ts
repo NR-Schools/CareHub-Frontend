@@ -13,8 +13,8 @@ export interface ChatUser {
 }
 
 export interface ConversationProps {
-  email: string;
-  cookie: string;
+  email?: string;
+  cookie?: string;
   data: Data;
 }
 

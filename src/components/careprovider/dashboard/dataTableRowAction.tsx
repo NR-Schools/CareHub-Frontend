@@ -34,7 +34,7 @@ const DataTableRowActions = <TData,>({
         <DialogHeader>
           <DialogTitle>Make new offer</DialogTitle>
           <DialogDescription>
-            Make new offers here. Click Submit when you're done.
+            Make new offers here. Click Submit when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

@@ -18,6 +18,43 @@ import { RequestSchema } from "@/schemas";
 
 export type request = z.infer<typeof RequestSchema>;
 
+const CellComponent = ({ row }: any) => {
+  const request: request = row.original;
+  const router = useRouter();
+  const onDelete = async () => {
+    const res = fetch("/api/request", {
+      method: "DELETE",
+      body: JSON.stringify(request),
+    });
+    const data = await res;
+    if (data.ok) {
+      router.refresh();
+    }
+  };
+  const onCheck = () => {
+    router.push(`/customer/dashboard/${request.requestId}?offerId=0`);
+  };
+  return (
+    <div className="flex flex-col gap-2 justify-end">
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={onDelete}
+        className="w-12 md:w-20 border-custom-red hover:bg-custom-red hover:text-custom-lighterGreen"
+      >
+        Delete
+      </Button>
+      <Button
+        size="sm"
+        onClick={onCheck}
+        className="w-12 md:w-20 bg-custom-green hover:bg-custom-action"
+      >
+        Check
+      </Button>
+    </div>
+  );
+};
+
 export const columns: ColumnDef<request>[] = [
   {
     accessorKey: "requestDetails",
@@ -40,41 +77,6 @@ export const columns: ColumnDef<request>[] = [
 
   {
     id: "actions",
-    cell: ({ row }) => {
-      const request: request = row.original;
-      const router = useRouter();
-      const onDelete = async () => {
-        const res = fetch("/api/request", {
-          method: "DELETE",
-          body: JSON.stringify(request),
-        });
-        const data = await res;
-        if (data.ok) {
-          router.refresh();
-        }
-      };
-      const onCheck = () => {
-        router.push(`/customer/dashboard/${request.requestId}?offerId=0`);
-      };
-      return (
-        <div className="flex flex-col gap-2 justify-end">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onDelete}
-            className="w-12 md:w-20 border-custom-red hover:bg-custom-red hover:text-custom-lighterGreen"
-          >
-            Delete
-          </Button>
-          <Button
-            size="sm"
-            onClick={onCheck}
-            className="w-12 md:w-20 bg-custom-green hover:bg-custom-action"
-          >
-            Check
-          </Button>
-        </div>
-      );
-    },
+    cell: CellComponent,
   },
 ];

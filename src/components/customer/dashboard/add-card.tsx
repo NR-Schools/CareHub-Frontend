@@ -23,7 +23,7 @@ const AddCard = () => {
           <DialogHeader>
             <DialogTitle>Make new Request</DialogTitle>
             <DialogDescription>
-              Make new requests here. Click Submit when you're done.
+              Make new requests here. Click Submit when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

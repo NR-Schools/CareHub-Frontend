@@ -11,7 +11,7 @@ interface ChatListProps {
   sendMessage: (newMessage: ChatMessage) => void;
   isMobile: boolean;
   data: Data;
-  email: string;
+  email?: string;
   sendPrivateValue: (message: string) => void;
 }
 

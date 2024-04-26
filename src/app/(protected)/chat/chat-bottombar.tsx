@@ -22,7 +22,7 @@ interface ChatBottombarProps {
   isMobile: boolean;
   data: Data;
   sendPrivateValue: (message: string) => void;
-  email: string;
+  email?: string;
 }
 
 export const BottombarIcons = [{ icon: FileImage }, { icon: Paperclip }];

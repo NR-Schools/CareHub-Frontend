@@ -65,14 +65,14 @@ export async function PUT(request: NextRequest) {
     },
     body: formData,
   });
-  const data = await res.json();
-  console.log(data);
-  if (data.error) {
-    console.log(data.error);
-    return { error: data.error };
-  }
+  // const data = await res.json();
+  // console.log(data);
+  // if (data.error) {
+  //   console.log(data.error);
+  //   return { error: data.error };
+  // }
   // const validatedRequest = RequestSchema.safeParse(data);
-  return NextResponse.json(res);
+  // return NextResponse.json(res);
   // );
 }
 export async function DELETE(request: NextRequest) {

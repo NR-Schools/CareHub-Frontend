@@ -58,6 +58,13 @@ export const TokenSchema = z.string();
 export const UserType = z.string();
 export const EmailSchema = z.string();
 
+export const sessionCookieSchema = z.object({
+  value: z.object({
+    name: z.string(),
+    value: z.string(),
+  }),
+});
+
 export const UserSchema = z.object({
   email: z.string(),
   name: z.string(),
