@@ -100,13 +100,17 @@ const CardForm = () => {
             <DialogClose asChild>
               <Button
                 variant="destructive"
-                className="w-full"
+                className="w-full bg-custom-red"
                 disabled={isPending}
               >
                 Cancel
               </Button>
             </DialogClose>
-            <Button type="submit" className="w-full" disabled={isPending}>
+            <Button
+              type="submit"
+              className="w-full bg-custom-green hover:bg-custom-onHover"
+              disabled={isPending}
+            >
               Submit
             </Button>
           </div>

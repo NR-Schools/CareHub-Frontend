@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { ProviderOfferInputSchema } from "@/schemas";
 import { postOffer } from "@/server/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -59,8 +60,8 @@ const CardForm = (row: any) => {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input
-                    type="text"
+                  <Textarea
+                    className="h-36"
                     placeholder="description"
                     disabled={isPending}
                     {...field}
@@ -74,13 +75,17 @@ const CardForm = (row: any) => {
             <DialogClose asChild>
               <Button
                 variant="destructive"
-                className="w-full"
+                className="w-full bg-custom-red"
                 disabled={isPending}
               >
                 Cancel
               </Button>
             </DialogClose>
-            <Button type="submit" className="w-full" disabled={isPending}>
+            <Button
+              type="submit"
+              className="w-full bg-custom-green hover:bg-custom-onHover"
+              disabled={isPending}
+            >
               Submit
             </Button>
           </div>
