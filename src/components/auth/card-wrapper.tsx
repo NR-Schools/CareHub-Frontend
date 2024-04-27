@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { BackButton } from "@/components/auth/back-button";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+
 interface CardWrapperProps {
   children: React.ReactNode;
   headerLabel: string;

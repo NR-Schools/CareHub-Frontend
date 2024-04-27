@@ -5,6 +5,7 @@ import Link from "next/link";
 const NavItem = () => {
   const cookieStore: unknown = cookies().get("userType");
   const validatedCookie = CookiesSchema.safeParse(cookieStore);
+
   let link = "";
   let isRequest = "";
   if (validatedCookie.success) {
