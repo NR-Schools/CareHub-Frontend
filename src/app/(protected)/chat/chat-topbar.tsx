@@ -1,27 +1,20 @@
 import React from "react";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { UserData } from "./data";
+
+import { Data } from "@/app/(protected)/chat/types";
 
 interface ChatTopbarProps {
-  selectedUser: UserData;
+  data: Data;
+  email?: string;
 }
 
-export default function ChatTopbar({ selectedUser }: ChatTopbarProps) {
+export default function ChatTopbar({ data, email }: ChatTopbarProps) {
+  const othersTurn = data.members[0].email === email ? 1 : 0;
+
   return (
     <div className="w-full h-20 flex p-4 justify-between items-center border-b">
       <div className="flex items-center gap-2">
-        <Avatar className="flex justify-center items-center">
-          <AvatarImage
-            src={selectedUser.avatar}
-            alt={selectedUser.name}
-            width={6}
-            height={6}
-            className="w-10 h-10 "
-          />
-        </Avatar>
         <div className="flex flex-col">
-          <span className="font-medium">{selectedUser.name}</span>
-          <span className="text-xs">Active 2 mins ago</span>
+          <span className="font-medium">{data.members[othersTurn].name}</span>
         </div>
       </div>
     </div>

@@ -7,8 +7,6 @@ import { DataTable } from "@/components/ui/data-table";
 import { z } from "zod";
 import Contact from "@/components/home-section/contact";
 
-type request = z.infer<typeof RequestsSchema>;
-
 const Dashboard = async () => {
   const cookieStore: unknown = cookies().get("session");
   const validatedCookie = CookiesSchema.safeParse(cookieStore);

@@ -17,7 +17,6 @@ export function Chat({ email, cookie, data }: ConversationProps) {
   );
   const conversationData = data.members.map((member) => member);
   const receiverName = conversationData[0].name === email ? 0 : 1;
-  const list: ChatMessage[] = [];
   const onPrivateMessage = (payload: any) => {
     var payloadData = JSON.parse(payload.body);
     messagesState.push(payloadData);
@@ -45,7 +44,7 @@ export function Chat({ email, cookie, data }: ConversationProps) {
   };
 
   const connect = () => {
-    let Sock = new SockJS(`${process.env.DATABASE_URL}/ws`);
+    let Sock = new SockJS(`${process.env.NEXT_PUBLIC_DATABASE_URL}/ws`);
     stompClient = over(Sock);
     stompClient.connect(
       { Authorization: "Bearer " + cookie },
@@ -77,7 +76,7 @@ export function Chat({ email, cookie, data }: ConversationProps) {
     <>
       {/* <Button onClick={() => connect()}>Connect</Button> */}
       <div className="flex flex-col justify-between w-full h-full">
-        <ChatTopbar selectedUser={selectedUser} />
+        <ChatTopbar data={data} email={email} />
 
         <ChatList
           messages={messagesState}
