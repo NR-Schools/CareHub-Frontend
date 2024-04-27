@@ -20,6 +20,8 @@ const profile = ({ name, value }: z.infer<typeof CookiesSchema>) => {
   let userType = "";
   if (value === "Provider") {
     userType = "care-provider";
+  } else if (value === "Customer") {
+    userType = "customer";
   }
   return value ? (
     <DropdownMenu>

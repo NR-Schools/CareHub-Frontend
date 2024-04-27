@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon } from "@radix-ui/react-icons";
-import { format, set } from "date-fns";
+import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 
 import {

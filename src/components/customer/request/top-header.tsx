@@ -1,6 +1,5 @@
 "use client";
 
-import AddCard from "@/components/customer/dashboard/add-card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 

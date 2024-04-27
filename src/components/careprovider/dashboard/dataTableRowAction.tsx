@@ -10,17 +10,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Dispatch, SetStateAction } from "react";
 interface DataTableRowActionsProps<TData>
   extends React.ComponentPropsWithoutRef<typeof Dialog> {
   row: any;
   onSuccess?: () => void;
   showTrigger?: boolean;
+  setShowOfferDialog: Dispatch<SetStateAction<boolean>>;
 }
 
 const DataTableRowActions = <TData,>({
   row,
   onSuccess,
   showTrigger = true,
+  setShowOfferDialog,
   ...props
 }: DataTableRowActionsProps<TData>) => {
   return (
@@ -39,7 +42,7 @@ const DataTableRowActions = <TData,>({
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid items-center gap-4">
-            <CardForm row={row} />
+            <CardForm row={row} setShowOfferDialog={setShowOfferDialog} />
           </div>
         </div>
       </DialogContent>

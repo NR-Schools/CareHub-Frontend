@@ -50,7 +50,6 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   } else {
     return { error: "Invalid credentials" };
   }
-
   return { success: "Email sent", role: `${process.env.CUSTOMER}` };
 };
 
@@ -135,7 +134,8 @@ export const registerCaregiver = async (
   formData.append("birthDate", birthdate.toISOString().split("T")[0]);
   formData.append("type", type);
   formData.append("description", description);
-  offerings.forEach((offering) => {
+  const charList: string[] = offerings.split(/,\s/);
+  charList.forEach((offering) => {
     formData.append(`offerings`, offering);
   });
   try {

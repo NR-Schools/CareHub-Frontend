@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { ChatLayout } from "./chat-layout";
 import { CookiesSchema } from "@/schemas";
+import { revalidate } from "@/app/api/request/route";
 
 export default async function Home({
   searchParams,
@@ -19,7 +20,6 @@ export default async function Home({
       },
     }
   );
-
   const data = await res.json();
   return (
     <main className="flex h-[calc(100dvh)] flex-col items-center justify-center p-4 md:px-24 py-32 gap-4">

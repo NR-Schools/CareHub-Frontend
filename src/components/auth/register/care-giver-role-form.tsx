@@ -51,7 +51,7 @@ const CareGiverRoleForm = ({
     defaultValues: {
       type: "",
       description: "",
-      offerings: [],
+      offerings: "",
     },
   });
   const onSubmit = (values: z.infer<typeof RoleCaregiverSchema>) => {
@@ -144,19 +144,6 @@ const CareGiverRoleForm = ({
                         placeholder="What services do you offer? (separate with comma)"
                         disabled={isPending}
                         {...field}
-                        onChange={(event) => {
-                          const value = event.target.value;
-                          const offeringsList = value
-                            .split(",")
-                            .map((item) => item.trim());
-                          field.onChange({
-                            ...event,
-                            target: {
-                              ...event.target,
-                              value: offeringsList,
-                            },
-                          });
-                        }}
                       />
                     </FormControl>
                     <FormMessage />

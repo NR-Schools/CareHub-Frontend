@@ -1,7 +1,6 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -15,6 +14,7 @@ import {
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { RequestSchema } from "@/schemas";
+import { toast } from "@/components/ui/use-toast";
 
 export type request = z.infer<typeof RequestSchema>;
 
@@ -28,6 +28,9 @@ const CellComponent = ({ row }: any) => {
     });
     const data = await res;
     if (data.ok) {
+      toast({
+        description: "Request Successfully Deleted",
+      });
       router.refresh();
     }
   };

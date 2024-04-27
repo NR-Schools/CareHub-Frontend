@@ -9,11 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useState } from "react";
 
 const AddCard = () => {
+  const [open, setOpen] = useState<boolean>(false);
   return (
     <div className="place-self-center pb-6">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="max-w-xs bg-custom-green hover:bg-custom-action">
             Add Request
@@ -28,7 +30,7 @@ const AddCard = () => {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid items-center gap-4">
-              <CardForm />
+              <CardForm setOpen={setOpen} />
             </div>
           </div>
         </DialogContent>

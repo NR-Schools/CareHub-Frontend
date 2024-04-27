@@ -47,8 +47,8 @@ export function ChatList({
                 opacity: { duration: 0.1 },
                 layout: {
                   type: "spring",
-                  bounce: 0.3,
-                  duration: messages.indexOf(message) * 0.05 + 0.2,
+                  bounce: 0.1,
+                  duration: 0.2,
                 },
               }}
               style={{

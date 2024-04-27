@@ -28,7 +28,7 @@ export const RegisterCustomerSchema = z.object({
 export const RegisterCaregiverSchema = z.object({
   type: z.string(),
   description: z.string(),
-  offerings: z.array(z.string()),
+  offerings: z.string(),
   email: z.string().email().min(1, { message: "please enter your email" }),
   password: z.string().min(6, {
     message: "password must be at least 6 characters",
@@ -46,7 +46,7 @@ export const RegisterCaregiverSchema = z.object({
 export const RoleCaregiverSchema = z.object({
   type: z.string(),
   description: z.string(),
-  offerings: z.array(z.string()),
+  offerings: z.string(),
 });
 
 export const CookiesSchema = z.object({

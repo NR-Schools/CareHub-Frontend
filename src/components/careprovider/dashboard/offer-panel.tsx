@@ -6,15 +6,13 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CookiesSchema } from "@/schemas";
-import { cookies } from "next/headers";
+
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const OfferPanel = (props: any) => {
   const [showOfferDialog, setShowOfferDialog] = useState(false);
@@ -32,6 +30,7 @@ const OfferPanel = (props: any) => {
         <DataTableRowActions
           open={showOfferDialog}
           onOpenChange={setShowOfferDialog}
+          setShowOfferDialog={setShowOfferDialog}
           row={dataOffer}
           showTrigger={false}
         />

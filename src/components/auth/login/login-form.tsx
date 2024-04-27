@@ -41,7 +41,7 @@ export const LoginForm = () => {
           toast({
             description: "You Successfully Logged in",
           });
-          router.push(`/home`);
+          router.refresh();
         }
       });
     });

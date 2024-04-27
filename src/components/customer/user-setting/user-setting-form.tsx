@@ -52,6 +52,12 @@ const UserSettingForm = () => {
           ...values,
         }),
       });
+      if (!error) {
+        toast({
+          description: "Profile Updated Successfully",
+        });
+        router.refresh();
+      }
     });
   };
   return (
@@ -64,7 +70,7 @@ const UserSettingForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your Name"

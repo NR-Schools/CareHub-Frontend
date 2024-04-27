@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
 import { ProviderOfferInputSchema } from "@/schemas";
 import { postOffer } from "@/server/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,7 +24,7 @@ interface PostData {
   requestId: number;
 }
 
-const CardForm = (row: any) => {
+const CardForm = ({ row, setShowOfferDialog }: any) => {
   const [error, setError] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof ProviderOfferInputSchema>>({
@@ -36,14 +37,17 @@ const CardForm = (row: any) => {
     setError("");
     const postData: PostData = {
       ...values,
-      requestId: row.row.requestId,
+      requestId: row.requestId,
       offerDetails: values.offerDetails,
     };
     startTransition(() => {
       postOffer(postData).then((data) => {
         setError(data.error);
         if (!error) {
-          <DialogClose />;
+          toast({
+            description: "Offer Successfully Submitted",
+          });
+          setShowOfferDialog(false);
         }
       });
     });

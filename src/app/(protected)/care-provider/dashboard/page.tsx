@@ -1,14 +1,17 @@
+import { revalidate } from "@/app/api/request/route";
 import OfferCard from "@/components/careprovider/dashboard/offer-card";
 import OfferPanel from "@/components/careprovider/dashboard/offer-panel";
 import Contact from "@/components/home-section/contact";
 import { CookiesSchema } from "@/schemas";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const RequestPage = async ({
   searchParams,
 }: {
-  searchParams: { requestId: string };
+  searchParams: { offerId: string };
 }) => {
+  const search = searchParams.offerId;
   const cookieSession: unknown = cookies().get("session");
   const validatedSession = CookiesSchema.safeParse(cookieSession);
   const cookieEmail: unknown = cookies().get("email");
@@ -23,6 +26,8 @@ const RequestPage = async ({
     },
   });
   const dataAll = await getAll.json();
+
+  // redirect(`/care-provider/dashboard?offerId=0`);
   // if (searchParams.requestId) {
   //   const requestId = props.props[0];
   //   onSelectedRow(0, requestId);

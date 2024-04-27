@@ -28,6 +28,7 @@ const OfferPanel = (props: any) => {
     });
     if (res.ok) {
       router.push(`/chat?email=${searchEmail}`);
+      router.refresh();
     }
   };
 

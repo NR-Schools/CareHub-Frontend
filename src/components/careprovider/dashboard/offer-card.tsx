@@ -21,9 +21,11 @@ const OfferCard = (props: any) => {
     current.set("email", item.customer.email);
     router.push(`${pathname}?${current.toString()}`, { scroll: false });
   };
-  if (current.get("offerId") === "0") {
-    onSelectedRow(0, props.props[0]);
-  }
+  useEffect(() => {
+    if (current.get("offerId") === "0") {
+      onSelectedRow(0, props.props[0]);
+    }
+  }, []);
   return (
     <div>
       {props.props.map((item: any, index: number) => (

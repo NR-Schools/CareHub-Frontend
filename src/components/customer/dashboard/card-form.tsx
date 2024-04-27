@@ -11,15 +11,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
 import { CustomerRequestSchema } from "@/schemas";
 import { postRequest } from "@/server/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { revalidatePath } from "next/cache";
-import { useState, useTransition } from "react";
+import { Dispatch, SetStateAction, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-const CardForm = () => {
+interface isOpen {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
+const CardForm = (setter: isOpen) => {
   const [error, setError] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof CustomerRequestSchema>>({
@@ -34,13 +37,19 @@ const CardForm = () => {
     startTransition(() => {
       postRequest(values).then((data) => {
         setError(data.error);
+        if (!data.error) {
+          toast({
+            description: "Request Successfully Submitted",
+          });
+          setter.setOpen(false);
+        }
       });
     });
   };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="space-y-4">
+        <div className="space-y-8">
           <FormField
             control={form.control}
             name="requestTitle"
@@ -106,6 +115,7 @@ const CardForm = () => {
                 Cancel
               </Button>
             </DialogClose>
+
             <Button
               type="submit"
               className="w-full bg-custom-green hover:bg-custom-onHover"

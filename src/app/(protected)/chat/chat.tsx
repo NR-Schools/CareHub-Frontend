@@ -22,7 +22,6 @@ export function Chat({ email, cookie, data }: ConversationProps) {
     var payloadData = JSON.parse(payload.body);
     messagesState.push(payloadData);
     setMessages([...messagesState]);
-    console.log(list);
     // if (privateChats.get(payloadData.senderName)) {
     //   privateChats.get(payloadData.senderName).push(payloadData);
     //   setPrivateChats(new Map(privateChats));
