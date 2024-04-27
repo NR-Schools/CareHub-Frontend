@@ -45,7 +45,7 @@ export function Chat({ email, cookie, data }: ConversationProps) {
   };
 
   const connect = () => {
-    let Sock = new SockJS("http://localhost:18080/ws");
+    let Sock = new SockJS(`${process.env.DATABASE_URL}/ws`);
     stompClient = over(Sock);
     stompClient.connect(
       { Authorization: "Bearer " + cookie },
