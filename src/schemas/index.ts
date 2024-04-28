@@ -11,7 +11,13 @@ export const LoginSchema = z.object({
 });
 
 export const RegisterCustomerSchema = z.object({
-  email: z.string().email().min(1, { message: "please enter your email" }),
+  email: z
+    .string()
+    .email()
+    .min(1, { message: "please enter your email" })
+    .refine((val) => val.endsWith("@gmail.com"), {
+      message: "please enter an email that ends with @gmail.com",
+    }),
   password: z.string().min(6, {
     message: "password must be at least 6 characters",
   }),
